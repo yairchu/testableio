@@ -24,8 +24,8 @@ program = do
 -- > runProcess ioFromAction program
 -- Hello there!
 -- Please tell me your name:
--- Yoda
--- Ok, Yoda is an ok name.
+-- Bob
+-- What a nice name!
 
 instance Show (Trace Action) where
     show (Trace (PutStrLn l) ()) = "?: " ++ l
