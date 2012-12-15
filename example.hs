@@ -38,11 +38,6 @@ instance Show (Trace Action) where
 -- Ok, Yoda is an ok name.
 -- > t
 -- ([?: Hello there!,?: Please tell me your name:,!: Yoda,?: Ok, Yoda is an ok name.],())
--- > putStr . unlines . map show $ fst t
--- ?: Hello there!
--- ?: Please tell me your name:
--- !: Yoda
--- ?: Ok, Yoda is an ok name.
 
 instance GadtMatch Action where
     gadtMatch r (PutStrLn _) (PutStrLn _) = Just r
