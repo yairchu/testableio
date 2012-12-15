@@ -28,8 +28,8 @@ program = do
 -- What a nice name!
 
 instance Show (Trace Action) where
-    show (Trace (PutStrLn l) ()) = "?: " ++ l
-    show (Trace GetLine l) = "!: " ++ l
+    show (Trace (PutStrLn l) ()) = "PutStrLn " ++ show l
+    show (Trace GetLine l) = show l ++ " <- GetLine"
 
 -- > t <- traceRunProcess ioFromAction program
 -- Hello there!
@@ -37,7 +37,11 @@ instance Show (Trace Action) where
 -- Yoda
 -- Ok, Yoda is an ok name.
 -- > t
--- ([?: Hello there!,?: Please tell me your name:,!: Yoda,?: Ok, Yoda is an ok name.],())
+-- ([PutStrLn "Hello there!"
+--  ,PutStrLn "Please tell me your name:"
+--  ,"Yoda" <- GetLine
+--  ,PutStrLn "Ok, Yoda is an ok name."
+--  ],())
 
 instance GadtMatch Action where
     gadtMatch r (PutStrLn _) (PutStrLn _) = Just r
@@ -65,8 +69,12 @@ badProgram = do
 -- False
 
 instance Show (OfA Action) where
-    show (OfA (PutStrLn l)) = "?: " ++ l
-    show (OfA GetLine) = "!"
+    show (OfA (PutStrLn l)) = "PutStrLn " ++ show l
+    show (OfA GetLine) = "GetLine"
 
 -- > testVsTraceD (fst t) badProgram
--- ([?: Hello there!,?: Please tell me your name:,!,?: What a nice name!],Nothing)
+-- ([PutStrLn "Hello there!"
+--  ,PutStrLn "Please tell me your name:"
+--  ,GetLine
+--  ,PutStrLn "What a nice name!"
+--  ],Nothing)
